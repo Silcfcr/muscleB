@@ -413,7 +413,7 @@ function setupEventListeners() {
 }
 
 function openGrab() {
-  window.open('https://grab.com/vn/en/search?query=Muscle%20B%20Da%20Lat', '_blank');
+  window.open('https://r.grab.com/g/6-20260515_152542_CA7AB650219B495DA6B65D46B47D04B7_MEXMPS-5-C4N2NLA1WFMAFE', '_blank');
 }
 
 function openWhatsApp() {
