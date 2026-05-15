@@ -157,7 +157,7 @@ function renderCarouselItems() {
     el.className = 'carousel-item';
     el.innerHTML = `
       <div class="menu-item-name">${escapeHtml(item.name)}</div>
-      <div class="menu-item-protein">${escapeHtml(item.protein)} protein</div>
+      ${item.protein && item.protein !== '0g' ? `<div class="menu-item-protein">${escapeHtml(item.protein)} protein</div>` : ''}
       <div class="menu-item-description">${escapeHtml(item.description || '')}</div>
       <div class="menu-item-price">${escapeHtml(item.price)}</div>
     `;
@@ -418,7 +418,7 @@ function openGrab() {
 
 function openWhatsApp() {
   const message = encodeURIComponent('Hi, I would like to order from Muscle B!');
-  window.open(`https://wa.me/84373330117?text=${message}`, '_blank');
+  window.open(`https://wa.me/840984344053?text=${message}`, '_blank');
 }
 
 function shareMenu() {
