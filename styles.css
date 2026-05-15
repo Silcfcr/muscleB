@@ -1085,14 +1085,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     pointer-events: auto;
   }
 
-  .lang-switch { display: none; }
-
-  .nav-open .lang-switch {
+  .lang-switch {
     display: flex;
-    position: fixed;
-    bottom: 90px;
-    right: var(--spacing-md);
-    z-index: 1001;
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .lang-btn {
+    padding: 4px 7px;
+    font-size: 0.68rem;
   }
 
   /* Hero */
