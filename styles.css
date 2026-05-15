@@ -732,6 +732,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: fixed;
   inset: 0;
   margin: auto;
+}
+
+.lightbox[open] {
   display: flex;
   align-items: center;
   justify-content: center;
