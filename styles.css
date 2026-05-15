@@ -729,6 +729,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   max-height: 95vh;
   background: transparent;
   outline: none;
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .lightbox::backdrop {
@@ -738,8 +744,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .lightbox img {
   max-height: 90vh;
+  max-width: 95vw;
   width: auto;
-  margin: 0 auto;
+  height: auto;
   border-radius: var(--radius-md);
   display: block;
 }
