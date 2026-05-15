@@ -37,6 +37,7 @@
     "menu": {
       "title": "Thực đơn",
       "subtitle": "Theo danh mục",
+      "proteinLabel": "protein",
       "categories": {
         "protein": "Protein",
         "pasta": "Mì Ý",
@@ -212,6 +213,7 @@
       "title": "Khách hàng nói gì",
       "rating": "4.8",
       "totalReviews": "37 đánh giá Google",
+      "metrics": { "food": "Đồ ăn", "service": "Dịch vụ", "ambiance": "Không gian" },
       "items": [
         {
           "name": "Felicia Burnett",
@@ -330,6 +332,7 @@
     "menu": {
       "title": "Our Menu",
       "subtitle": "Browse by category",
+      "proteinLabel": "protein",
       "categories": {
         "protein": "Protein",
         "pasta": "Pasta",
@@ -505,6 +508,7 @@
       "title": "What Our Customers Say",
       "rating": "4.8",
       "totalReviews": "37 Google Reviews",
+      "metrics": { "food": "Food", "service": "Service", "ambiance": "Ambiance" },
       "items": [
         {
           "name": "Felicia Burnett",
@@ -596,9 +600,9 @@
       "location": "Место расположения"
     },
     "hero": {
-      "eyebrow": "Дà Лат · Вьетнам",
+      "eyebrow": "Да Лат · Вьетнам",
       "tagline": "ПОСТРОЙ СВОИ МЫШЦЫ",
-      "subtitle": "Здоровые блюда с высоким содержанием белка в Дà Лате",
+      "subtitle": "Здоровые блюда с высоким содержанием белка в Да Лате",
       "description": "Премиальная кухня, ориентированная на белки, для энтузиастов фитнеса и людей, заботящихся о здоровье",
       "cta": "Заказать",
       "viewMenu": "Смотреть меню",
@@ -606,7 +610,7 @@
     },
     "about": {
       "title": "Почему выбрать Muscle B?",
-      "description": "Мы лучший выбор в Дà Лате для здоровых блюд с высоким содержанием белка. Каждое блюдо тщательно приготовлено из премиальных ингредиентов с точным расчетом макронутриентов.",
+      "description": "Мы лучший выбор в Да Лате для здоровых блюд с высоким содержанием белка. Каждое блюдо тщательно приготовлено из премиальных ингредиентов с точным расчетом макронутриентов.",
       "features": [
         "Высокое содержание белка",
         "Свежие качественные ингредиенты",
@@ -623,6 +627,7 @@
     "menu": {
       "title": "Наше меню",
       "subtitle": "По категориям",
+      "proteinLabel": "белок",
       "categories": {
         "protein": "Белок",
         "pasta": "Паста",
@@ -798,6 +803,7 @@
       "title": "Что говорят наши клиенты",
       "rating": "4.8",
       "totalReviews": "37 отзывов на Google",
+      "metrics": { "food": "Еда", "service": "Сервис", "ambiance": "Атмосфера" },
       "items": [
         {
           "name": "Felicia Burnett",
@@ -844,7 +850,7 @@
         "allDays": "10:00 - 21:00"
       },
       "travelTime": "4 мин на машине, 16 мин пешком",
-      "shortAddress": "Дà Лат, Ламдонг",
+      "shortAddress": "Да Лат, Ламдонг",
       "labels": {
         "address": "Адрес",
         "phone": "Телефон",
@@ -916,6 +922,7 @@
     "menu": {
       "title": "메뉴",
       "subtitle": "카테고리별",
+      "proteinLabel": "단백질",
       "categories": {
         "protein": "단백질",
         "pasta": "파스타",
@@ -1091,6 +1098,7 @@
       "title": "고객 후기",
       "rating": "4.8",
       "totalReviews": "구글 37개 리뷰",
+      "metrics": { "food": "음식", "service": "서비스", "ambiance": "분위기" },
       "items": [
         {
           "name": "Felicia Burnett",
@@ -1209,6 +1217,7 @@
     "menu": {
       "title": "菜单",
       "subtitle": "按类别浏览",
+      "proteinLabel": "蛋白质",
       "categories": {
         "protein": "蛋白质",
         "pasta": "意面",
@@ -1384,6 +1393,7 @@
       "title": "客户评价",
       "rating": "4.8",
       "totalReviews": "37条谷歌评论",
+      "metrics": { "food": "食物", "service": "服务", "ambiance": "氛围" },
       "items": [
         {
           "name": "Felicia Burnett",

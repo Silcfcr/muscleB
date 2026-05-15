@@ -74,9 +74,9 @@
         <div class="hero-grid">
           <div class="hero-text reveal">
             <p class="hero-eyebrow" data-i18n="hero.eyebrow">Đà Lạt · Vietnam</p>
-            <h1 class="hero-tagline">BUILD YOUR MUSCLE</h1>
-            <p class="hero-subtitle">Healthy, High Protein Meals in Đà Lạt</p>
-            <p class="hero-description">Premium protein-focused cuisine for fitness enthusiasts and health-conscious
+            <h1 class="hero-tagline" data-i18n="hero.tagline">BUILD YOUR MUSCLE</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">Healthy, High Protein Meals in Đà Lạt</p>
+            <p class="hero-description" data-i18n="hero.description">Premium protein-focused cuisine for fitness enthusiasts and health-conscious
               individuals</p>
             <div class="hero-actions">
               <button type="button" class="btn btn-primary" id="heroCtaBtn" data-i18n="hero.cta">Order Now</button>
@@ -105,7 +105,7 @@
         <header class="section-header reveal">
           <span class="section-tag">Muscle B</span>
           <h2 class="section-title" data-i18n="about.title">Why Choose Muscle B?</h2>
-          <p class="section-subtitle about-subtitle">We're Đà Lạt's top choice for healthy, high-protein meals.</p>
+          <p class="section-subtitle about-subtitle" data-i18n="about.description">We're Đà Lạt's top choice for healthy, high-protein meals.</p>
         </header>
         <div class="features-grid">
 
@@ -214,11 +214,13 @@
         </header>
         <div class="menu-lang-tabs reveal" role="tablist">
           <button type="button" class="menu-lang-btn active" data-menu-lang="en" role="tab" aria-selected="true"
+            aria-controls="menuPagesPanel" id="menuLangTabEn"
             data-i18n="menuFull.english">English</button>
           <button type="button" class="menu-lang-btn" data-menu-lang="vi" role="tab" aria-selected="false"
+            aria-controls="menuPagesPanel" id="menuLangTabVi"
             data-i18n="menuFull.vietnamese">Tiếng Việt</button>
         </div>
-        <div class="menu-pages reveal">
+        <div class="menu-pages reveal" id="menuPagesPanel" role="tabpanel" aria-labelledby="menuLangTabEn">
           <button type="button" class="menu-page-btn" data-menu-en="images/menu1English.jpg"
             data-menu-vi="images/Menu1Vietnam.jpg">
             <img src="images/menu1English.jpg" alt="Menu page 1" loading="lazy">
@@ -239,7 +241,7 @@
         </header>
         <div class="reviews-summary reveal">
           <div class="rating-number" id="ratingNumber">4.8</div>
-          <div class="stars" aria-label="5 stars">★★★★★</div>
+          <div class="stars" id="summaryStars" aria-label="4.8 out of 5">★★★★★</div>
           <p class="review-count" id="reviewCount">37 Google Reviews</p>
         </div>
         <div class="reviews-grid" id="reviewsGrid"></div>
@@ -329,7 +331,7 @@
       </div>
       <div class="footer-col">
         <h4 data-i18n="footer.contact">Contact</h4>
-        <p><a href="tel:00984344053">0984344053</a></p>
+        <p><a href="tel:0984344053">0984344053</a></p>
         <p id="footerAddress">Đà Lạt, Lâm Đồng</p>
       </div>
       <div class="footer-col">
@@ -338,8 +340,20 @@
           Menu</button>
       </div>
     </div>
-    <p class="footer-bottom container" data-i18n="footer.copyright">© 2026 Muscle B. Healthy meals for your lifestyle.
-    </p>
+    <div class="footer-bottom">
+      <div class="container">
+        <p data-i18n="footer.copyright">© 2026 Muscle B. Healthy meals for your lifestyle.</p>
+      </div>
+    </div>
+    <div class="dev-credit">
+      <span>Developed by <strong>Silvia Castro Fernández</strong></span>
+      <span class="dev-credit__sep">·</span>
+      <a href="mailto:silvi.casfer@gmail.com">silvi.casfer@gmail.com</a>
+      <span class="dev-credit__sep">·</span>
+      <a href="tel:+50689268481">+506 8926 8481</a>
+      <span class="dev-credit__sep">·</span>
+      <a href="https://mail.google.com/mail/?view=cm&to=silvi.casfer@gmail.com&su=Business%20Website%20Inquiry&body=Hello%20Silvia%2C%0A%0AI%20wish%20to%20create%20my%20business%20website..." target="_blank" rel="noopener" class="dev-credit__cta">Contact me →</a>
+    </div>
   </footer>
 
   <!-- ===== LIGHTBOX ===== -->

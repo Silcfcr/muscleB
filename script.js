@@ -9,6 +9,7 @@ let currentCategory = 'protein';
 let currentMenuIndex = 0;
 let menuItems = [];
 let itemsPerView = 3;
+let resizeTimer;
 
 // ============================================
 // INIT
@@ -20,16 +21,15 @@ async function init() {
     if (savedLang) currentLanguage = savedLang;
 
     const response = await fetch('content.json');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     contentData = await response.json();
 
     updateLanguage(currentLanguage);
-    setupCarousel();
     setupEventListeners();
     setupMobileNav();
     setupFullMenu();
     setupLightbox();
     setupRevealAnimations();
-    setupSmoothScroll();
     updateMenuDisplay();
     updateReviews();
 
@@ -57,7 +57,6 @@ function updateLanguage(lang) {
     }
   });
 
-  updateHeroSection(content);
   updateAboutSection(content);
   updateMenuSection(content);
   updateReviewsSection(content);
@@ -77,18 +76,8 @@ function getNestedValue(obj, path) {
   return path.split('.').reduce((current, prop) => current?.[prop], obj);
 }
 
-function updateHeroSection(content) {
-  const hero = content.hero;
-  document.querySelector('.hero-tagline').textContent = hero.tagline;
-  document.querySelector('.hero-subtitle').textContent = hero.subtitle;
-  document.querySelector('.hero-description').textContent = hero.description;
-  document.getElementById('heroCtaBtn').textContent = hero.cta;
-}
-
 function updateAboutSection(content) {
   const about = content.about;
-  document.querySelector('.about-subtitle').textContent = about.description;
-
   const featureCards = document.querySelectorAll('.feature-card');
   about.features.forEach((title, index) => {
     if (featureCards[index]) {
@@ -115,6 +104,8 @@ function updateReviewsSection(content) {
   document.querySelector('.reviews-title').textContent = reviews.title;
   document.getElementById('ratingNumber').textContent = reviews.rating;
   document.getElementById('reviewCount').textContent = reviews.totalReviews || reviews.count;
+  const summaryStars = document.getElementById('summaryStars');
+  if (summaryStars) summaryStars.setAttribute('aria-label', `${reviews.rating} out of 5`);
   updateReviews();
 }
 
@@ -135,10 +126,6 @@ function updateFooterSection(content) {
 // MENU CAROUSEL
 // ============================================
 
-function setupCarousel() {
-  updateMenuDisplay();
-}
-
 function updateMenuDisplay() {
   const content = contentData[currentLanguage];
   if (!content?.menu?.[currentCategory]) return;
@@ -152,12 +139,14 @@ function renderCarouselItems() {
   const track = document.getElementById('carouselTrack');
   track.innerHTML = '';
 
+  const proteinLabel = contentData[currentLanguage]?.menu?.proteinLabel || 'protein';
+
   menuItems.forEach(item => {
     const el = document.createElement('div');
     el.className = 'carousel-item';
     el.innerHTML = `
       <div class="menu-item-name">${escapeHtml(item.name)}</div>
-      ${item.protein && item.protein !== '0g' ? `<div class="menu-item-protein">${escapeHtml(item.protein)} protein</div>` : ''}
+      ${item.protein && item.protein !== '0g' ? `<div class="menu-item-protein">${escapeHtml(item.protein)} ${escapeHtml(proteinLabel)}</div>` : ''}
       <div class="menu-item-description">${escapeHtml(item.description || '')}</div>
       <div class="menu-item-price">${escapeHtml(item.price)}</div>
     `;
@@ -232,6 +221,7 @@ function updateReviews() {
   if (!content?.reviews) return;
 
   const reviews = content.reviews;
+  const metrics = reviews.metrics || { food: 'Food', service: 'Service', ambiance: 'Ambiance' };
   const container = document.getElementById('reviewsGrid');
   container.innerHTML = '';
 
@@ -246,21 +236,21 @@ function updateReviews() {
           <div class="review-author">${escapeHtml(review.name)}</div>
           <div class="review-title">${escapeHtml(review.title)}</div>
         </div>
-        <div class="review-rating" aria-label="${review.stars} stars">${stars}</div>
+        <div class="review-rating" aria-label="${review.stars} out of 5 stars">${stars}</div>
       </div>
       <div class="review-time">${escapeHtml(review.timeAgo)}</div>
       <p class="review-text">${escapeHtml(review.text)}</p>
       <div class="review-metrics">
         <div class="metric-item">
-          <span class="metric-label">Food</span>
+          <span class="metric-label">${escapeHtml(metrics.food)}</span>
           <span class="metric-value">${formatMetric(review.food)}</span>
         </div>
         <div class="metric-item">
-          <span class="metric-label">Service</span>
+          <span class="metric-label">${escapeHtml(metrics.service)}</span>
           <span class="metric-value">${formatMetric(review.service)}</span>
         </div>
         <div class="metric-item">
-          <span class="metric-label">Ambiance</span>
+          <span class="metric-label">${escapeHtml(metrics.ambiance)}</span>
           <span class="metric-value">${formatMetric(review.ambiance)}</span>
         </div>
       </div>
@@ -286,6 +276,8 @@ function setupFullMenu() {
       btn.classList.add('active');
       btn.setAttribute('aria-selected', 'true');
       currentMenuLang = btn.dataset.menuLang;
+      const panel = document.getElementById('menuPagesPanel');
+      if (panel) panel.setAttribute('aria-labelledby', btn.id);
       updateMenuImages();
     });
   });
@@ -387,6 +379,22 @@ function observeRevealElements(elements) {
 }
 
 // ============================================
+// TOAST
+// ============================================
+
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add('toast--visible'));
+  setTimeout(() => {
+    toast.classList.remove('toast--visible');
+    setTimeout(() => toast.remove(), 300);
+  }, 2000);
+}
+
+// ============================================
 // EVENT LISTENERS
 // ============================================
 
@@ -413,12 +421,12 @@ function setupEventListeners() {
 }
 
 function openGrab() {
-  window.open('https://r.grab.com/g/6-20260515_152542_CA7AB650219B495DA6B65D46B47D04B7_MEXMPS-5-C4N2NLA1WFMAFE', '_blank');
+  window.open('https://r.grab.com/g/6-20260515_152542_CA7AB650219B495DA6B65D46B47D04B7_MEXMPS-5-C4N2NLA1WFMAFE', '_blank', 'noopener,noreferrer');
 }
 
 function openWhatsApp() {
   const message = encodeURIComponent('Hi, I would like to order from Muscle B!');
-  window.open(`https://wa.me/840984344053?text=${message}`, '_blank');
+  window.open(`https://wa.me/840984344053?text=${message}`, '_blank', 'noopener,noreferrer');
 }
 
 function shareMenu() {
@@ -430,42 +438,35 @@ function shareMenu() {
       url
     });
   } else {
-    navigator.clipboard.writeText(url);
-    alert('Link copied to clipboard!');
-  }
-}
-
-function setupSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const href = anchor.getAttribute('href');
-      if (href === '#') return;
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
+    navigator.clipboard.writeText(url).then(() => {
+      showToast('Link copied to clipboard!');
+    }).catch(() => {
+      showToast('Could not copy link');
     });
-  });
+  }
 }
 
 function handleResize() {
-  const width = window.innerWidth;
-  const newItemsPerView = width < 480 ? 1 : width < 1024 ? 2 : 3;
-  if (newItemsPerView !== itemsPerView) {
-    itemsPerView = newItemsPerView;
-    renderCarouselItems();
-  } else {
-    updateCarouselPosition();
-  }
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    const width = window.innerWidth;
+    const newItemsPerView = width < 480 ? 1 : width < 1024 ? 2 : 3;
+    if (newItemsPerView !== itemsPerView) {
+      itemsPerView = newItemsPerView;
+      renderCarouselItems();
+    } else {
+      updateCarouselPosition();
+    }
+  }, 150);
 }
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowLeft') previousSlide();
-  else if (e.key === 'ArrowRight') nextSlide();
-  else if (e.key === 'Escape') {
-    document.getElementById('lightbox')?.close();
-  }
+  const tag = document.activeElement.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  const lightbox = document.getElementById('lightbox');
+  if (e.key === 'ArrowLeft' && !lightbox?.open) previousSlide();
+  else if (e.key === 'ArrowRight' && !lightbox?.open) nextSlide();
+  else if (e.key === 'Escape') lightbox?.close();
 });
 
 document.addEventListener('DOMContentLoaded', init);
